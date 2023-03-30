@@ -10,7 +10,7 @@ public class SocketServerRecibirArchivosArchivo {
 	private final Integer PUERTO = 3456;
 
 	private Socket socketCliente;
-	private static final String RUTA_LLEGADA = "D:/_hasta/";
+	private static final String RUTA_LLEGADA = "D:/__RECURSOS/servidor/";
 
 
 	@SuppressWarnings("unused")
@@ -25,7 +25,7 @@ public class SocketServerRecibirArchivosArchivo {
 												// alguien se conecte
 				System.out.println("------SE ATENDIO A UN CLIENTE--------------");
 				
-				//1 RECIBE DEL NOMBRE DEL ARCHIVO
+				//PASO 2 RECIBE DEL NOMBRE DEL ARCHIVO
 				//====================================
 				//Permite el envio de cualquier objeto
 				ObjectOutputStream ous = new ObjectOutputStream(socketCliente.getOutputStream());
@@ -33,14 +33,17 @@ public class SocketServerRecibirArchivosArchivo {
 			
 				String fileName = (String) ois.readObject();
 				
-				//2 RECIBE LOS PAQUETES DE BYTES DEL ARCHIVO
+				//PASO 4 RECIBE LOS PAQUETES DE BYTES DEL ARCHIVO
 				//============================================
 				// --- creando los flujos
 				File archivoDestino = new File(RUTA_LLEGADA + fileName);
 				FileOutputStream fos = new FileOutputStream(archivoDestino);
 				DataInputStream entrada =new DataInputStream(socketCliente.getInputStream());
 
-
+				int leido;
+				while(( leido = entrada.read()) != -1) {
+					fos.write(leido);
+				}
 				
 				
 				fos.close();

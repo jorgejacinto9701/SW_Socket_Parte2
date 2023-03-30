@@ -35,10 +35,21 @@ public class ClienteMensaje {
 			//--------------------------------------------
 
 			FormularioMensaje formulario = (FormularioMensaje)form;
-
 			
+			//PASO 1: CLIENTE envía el área
+			String mensaje = formulario.jcbArea.getSelectedItem().toString();
+			salida.println(mensaje);
 			
+			//PASO 4: CLIENTE recibir los empleados
+			String integrantes = entrada.readLine();
 			
+			//PASO 5: CLIENTE Se muestra en el formulario
+			String[] separados = integrantes.split(",");
+			formulario.txtMensaje.setText("");
+			
+			for (String aux : separados) {
+				formulario.txtMensaje.append(aux  + "\n");
+			}
 			
 			socketCliente.close();
 		} catch (UnknownHostException e) {
