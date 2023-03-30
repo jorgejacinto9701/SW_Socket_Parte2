@@ -29,7 +29,10 @@ public class SocketClienteEnviarArchivo {
 			FileInputStream fis = new FileInputStream(file);
 			DataOutputStream salida = new DataOutputStream(cliente.getOutputStream());
 			
-
+			int leido;
+			while( (leido = fis.read()) != -1) {
+				salida.write(leido);
+			}
 			
 			fis.close();
 			salida.close();

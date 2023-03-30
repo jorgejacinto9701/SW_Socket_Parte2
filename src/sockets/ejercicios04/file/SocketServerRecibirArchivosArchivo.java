@@ -33,11 +33,7 @@ public class SocketServerRecibirArchivosArchivo {
 
 				String fileName = (String) ois.readObject();
 				System.out.println("EL NOMBRE DEL ARCHIVO :" + fileName);
-				String ARCHIVO_DESTINO = "D:/_hasta/" + fileName;
-
-				// Recibe solo archivos PDF
-				String extension = fileName.substring(fileName.length() - 3);
-				if (extension.equals("pdf")) {
+				String ARCHIVO_DESTINO = "D:/__RECURSOS/servidor/" + fileName;
 
 				// 2 RECIBE LOS PAQUETES DE BYTES DEL ARCHIVO
 				// ============================================
@@ -46,13 +42,15 @@ public class SocketServerRecibirArchivosArchivo {
 				FileOutputStream fos = new FileOutputStream(archivoDestino);
 				DataInputStream entrada = new DataInputStream(cliente.getInputStream());
 
-
-				
-				
+				int leido;
+				while( (leido = entrada.read()) != -1) {
+					//System.out.println(" >> leidos >> " + leido);
+					fos.write(leido);
+				}
+			
 				
 				fos.close();
 				entrada.close();
-				}
 				cliente.close();
 			}
 		} catch (Exception e) {

@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -12,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
+import javax.swing.WindowConstants;import javax.swing.table.DefaultTableColumnModel;
 
 public class Formulario extends JFrame implements ActionListener{
 	
@@ -123,7 +124,12 @@ public class Formulario extends JFrame implements ActionListener{
 			}
 		}
 		if(e.getSource() == btnEnviar){
-			
+			for (int i = 0; i < dlm.getSize(); i++) {
+				String rutaFile = dlm.getElementAt(i).toString();
+				System.out.println( (i+1) + " >>> " + rutaFile);
+				//Crear un  socket para enviar cada archivo
+				new SocketClienteEnviarArchivo(rutaFile);
+			}
 		}
 		if(e.getSource() == btnEliminar){
 			if(!lstArchivos.isSelectionEmpty())

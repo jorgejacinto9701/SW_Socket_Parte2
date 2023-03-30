@@ -6,9 +6,9 @@ import java.io.*;
 public class SocketClienteEnviarArchivo {
 
 	private final Integer PUERTO = 3456;
-	private final String HOST = "10.40.25.254";
-	private final String RUTA_ORIGEN = "D:/_desde/data.png";
-	private final String FILE_ORIGEN = "data.png";
+	private final String HOST = "localhost";
+	private final String FILE_PATH = "D:/__RECURSOS/Duke.png";
+	private final String FILE_NAME = "Duke.png";
 
 	@SuppressWarnings("unused")
 	public SocketClienteEnviarArchivo() {
@@ -21,16 +21,20 @@ public class SocketClienteEnviarArchivo {
 			ObjectOutputStream ous = new ObjectOutputStream(socketCliente.getOutputStream());
 			ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
 			
-			ous.writeObject(FILE_ORIGEN);
+			ous.writeObject(FILE_NAME);
 			
 			
 			//2 ENVO DE LOS PAQUETES DE BYTES DEL ARCHIVO
 			//============================================
-			File archivo = new File(RUTA_ORIGEN);
+			File archivo = new File(FILE_PATH);
 			FileInputStream fis = new FileInputStream(archivo);
 			DataOutputStream salida = new DataOutputStream(socketCliente.getOutputStream());
 			
-		
+			int leido;
+			while( (leido = fis.read()) != -1) {
+				salida.write(leido);
+			}
+			
 			fis.close();
 			salida.close();
 			socketCliente.close();

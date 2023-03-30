@@ -10,7 +10,7 @@ public class SocketServerRecibirArchivosArchivo {
 	private final Integer PUERTO = 3456;
 
 	private Socket socketCliente;
-	private static final String RUTA_LLEGADA = "D:/_hasta/";
+	private static final String RUTA_LLEGADA = "D:/__RECURSOS/servidor/";
 
 
 	@SuppressWarnings("unused")
@@ -40,7 +40,25 @@ public class SocketServerRecibirArchivosArchivo {
 				FileOutputStream fos = new FileOutputStream(archivoDestino);
 				DataInputStream entrada =new DataInputStream(socketCliente.getInputStream());
 
-			
+				int leido;
+				while( (leido = entrada.read()) != -1) {
+					fos.write(leido);
+				}
+				
+				//Covertir el archivo en un zip
+				FileInputStream fis = new FileInputStream(archivoDestino);
+				File archivoZipDestino = new File(RUTA_LLEGADA + "duke.zip");
+				ZipOutputStream outZip = new ZipOutputStream(new FileOutputStream(archivoZipDestino));
+				ZipEntry fileZipDestino = new ZipEntry(fileName);
+				outZip.putNextEntry(fileZipDestino);
+				
+				int leido2;
+				while( (leido2 = fis.read()) != -1) {
+					outZip.write(leido2);
+				}
+				fis.close();
+				outZip.closeEntry();
+				outZip.close();
 				
 				fos.close();
 				entrada.close();
