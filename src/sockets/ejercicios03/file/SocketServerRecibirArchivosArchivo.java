@@ -10,7 +10,7 @@ public class SocketServerRecibirArchivosArchivo {
 	private final Integer PUERTO = 3456;
 
 	private Socket socketCliente;
-	private static final String RUTA_LLEGADA = "D:/__RECURSOS/servidor/";
+	private static final String RUTA_LLEGADA = "D:/_RECURSOS/servidor/";
 
 
 	@SuppressWarnings("unused")

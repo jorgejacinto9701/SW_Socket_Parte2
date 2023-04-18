@@ -7,7 +7,7 @@ public class SocketClienteEnviarArchivo {
 
 	private final Integer PUERTO = 3456;
 	private final String HOST = "localhost";
-	private final String RUTA_ORIGEN = "D:/__RECURSOS/Duke.png";
+	private final String RUTA_ORIGEN = "D:/_RECURSOS/Duke.png";
 	private final String FILE_ORIGEN = "Duke.png";
 
 	@SuppressWarnings("unused")

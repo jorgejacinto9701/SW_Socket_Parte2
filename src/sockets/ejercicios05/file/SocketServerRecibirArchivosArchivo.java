@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Iterator;
 
 public class SocketServerRecibirArchivosArchivo {
 
@@ -34,8 +35,8 @@ public class SocketServerRecibirArchivosArchivo {
 				String cadena = (String) ois.readObject();
 				String[] nombres = cadena.split(",");
 			
-				
-				String ARCHIVO_DESTINO = "D:/_hasta/";
+				System.out.println(">>> nombres >> " + nombres);
+				String ARCHIVO_DESTINO = "D:/_RECURSOS/servidor/";
 				
 
 
@@ -43,12 +44,25 @@ public class SocketServerRecibirArchivosArchivo {
 				// ============================================
 				// --- creando los flujos
 
-				File file = new File(ARCHIVO_DESTINO);
-				FileOutputStream fos = new FileOutputStream("");
-				DataInputStream entrada = new DataInputStream(cliente.getInputStream());
+				for (int i = 0; i < nombres.length; i++) {
+					System.out.println("EL NOMBRE DEL ARCHIVO :" + nombres[i]);
 
-				fos.close();
-				entrada.close();
+					// 2 RECIBE LOS PAQUETES DE BYTES DEL ARCHIVO
+					// ============================================
+					// --- creando los flujos
+					FileOutputStream fos = new FileOutputStream(ARCHIVO_DESTINO +nombres[i]);
+					DataInputStream entrada = new DataInputStream(cliente.getInputStream());
+
+					int leido;
+					while ((leido = entrada.read()) != -1) {
+						fos.write(leido);
+					}
+
+					fos.close();
+					entrada.close();
+
+				}
+
 
 				
 				cliente.close();

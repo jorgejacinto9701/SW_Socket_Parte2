@@ -33,7 +33,7 @@ public class SocketServerRecibirArchivosArchivo {
 
 				String fileName = (String) ois.readObject();
 				System.out.println("EL NOMBRE DEL ARCHIVO :" + fileName);
-				String ARCHIVO_DESTINO = "D:/__RECURSOS/servidor/" + fileName;
+				String ARCHIVO_DESTINO = "D:/_RECURSOS/servidor/" + fileName;
 
 				// 2 RECIBE LOS PAQUETES DE BYTES DEL ARCHIVO
 				// ============================================
